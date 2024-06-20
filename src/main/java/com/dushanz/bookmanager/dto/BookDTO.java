@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class BookDTO {
-    private int id;
+    private Integer id;
     @NotBlank(message = "Book title is mandatory")
     private String title;
     @NotBlank(message = "Book Author name is mandatory")

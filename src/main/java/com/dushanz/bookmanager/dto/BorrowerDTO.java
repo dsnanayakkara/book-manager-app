@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class BorrowerDTO {
-    private int id;
+    private Integer id;
     @NotBlank(message = "Borrower name is mandatory")
     private String name;
     @Email(message = "Email should be valid")
