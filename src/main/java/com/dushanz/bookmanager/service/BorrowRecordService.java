@@ -4,6 +4,7 @@ import com.dushanz.bookmanager.dto.BorrowRecordDTO;
 import com.dushanz.bookmanager.entity.Book;
 import com.dushanz.bookmanager.entity.BorrowRecord;
 import com.dushanz.bookmanager.entity.Borrower;
+import com.dushanz.bookmanager.exception.ResourceNotFoundException;
 import com.dushanz.bookmanager.repository.BookRepository;
 import com.dushanz.bookmanager.repository.BorrowRecordRepository;
 import com.dushanz.bookmanager.mapper.BorrowRecordMapper;
@@ -33,13 +34,14 @@ public class BorrowRecordService {
 
     /**
      * Creates an entry in the database for a borrowed book.
+     *
+     * @param bookId unique id of the book being borrowed
      * @param borrowRecordDTO the borrowed book details that needs to be persisted
      * @return the borrowed record that was persisted in the DB.
      */
     @Transactional
-    public BorrowRecordDTO borrowBook(BorrowRecordDTO borrowRecordDTO) throws Exception {
+    public BorrowRecordDTO borrowBook(Integer bookId, BorrowRecordDTO borrowRecordDTO) {
         // Validate the bookId and borrowerId
-        Integer bookId = borrowRecordDTO.getBookId();
         Integer borrowerId = borrowRecordDTO.getBorrowerId();
 
         // Handle concurrency issues where multiple users trying to borrow the same book at the same time
@@ -47,11 +49,11 @@ public class BorrowRecordService {
         Book book = entityManager.find(Book.class, bookId, LockModeType.PESSIMISTIC_WRITE);
 
         if (book == null) {
-            throw new Exception("Book not found");
+            throw new ResourceNotFoundException("Book", "", "");
         }
 
         Borrower borrower = borrowerRepository.findById(borrowerId)
-                .orElseThrow(() -> new Exception("Borrower not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Borrower", "", ""));
 
         // Check if the book is available to be borrowed
         // status = true indicates book is available, status = false indicates book is unavailable
@@ -78,15 +80,15 @@ public class BorrowRecordService {
     }
 
     @Transactional
-    public BorrowRecordDTO returnBook(Integer bookId, Integer borrowerId) throws Exception {
+    public BorrowRecordDTO returnBook(Integer bookId, BorrowRecordDTO borrowRecordDTO) {
         // Validate the bookId and borrowerId
         Book book = entityManager.find(Book.class, bookId, LockModeType.PESSIMISTIC_WRITE);
         if (book == null) {
-            throw new Exception("Book not found");
+            throw new ResourceNotFoundException("Book", "", "");
         }
 
-        Borrower borrower = borrowerRepository.findById(borrowerId)
-                .orElseThrow(() -> new Exception("Borrower not found"));
+        Borrower borrower = borrowerRepository.findById(borrowRecordDTO.getBookId())
+                .orElseThrow(() -> new ResourceNotFoundException("Borrower", "", ""));
 
         // Check if the book is currently borrowed by the borrower
         BorrowRecord borrowRecord = borrowRecordRepository.findByBookAndBorrowerAndReturnDateIsNull(book, borrower)

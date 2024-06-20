@@ -76,7 +76,7 @@ class BorrowRecordServiceTest {
             return saved;
         });
 
-        BorrowRecordDTO actualDto = service.borrowBook(dto);
+        BorrowRecordDTO actualDto = service.borrowBook(1, dto);
 
         assertEquals(dto.getBorrowerId(), actualDto.getBorrowerId());
         assertEquals(dto.getBookId(), actualDto.getBookId());
@@ -105,7 +105,7 @@ class BorrowRecordServiceTest {
         // mock the result of save method to return the passed input arg (to simulate to how jpa repo works)
         when(bookRepository.save(any(Book.class))).thenAnswer(i -> i.getArguments()[0]);
         // Expecting exception as the book is not available to borrow
-        assertThrows(IllegalStateException.class, () -> service.borrowBook(dto));
+        assertThrows(IllegalStateException.class, () -> service.borrowBook(1, dto));
 
         verify(entityManager).find(Book.class, dto.getBookId(), LockModeType.PESSIMISTIC_WRITE);
         verify(borrowerRepository).findById(dto.getBorrowerId());
@@ -137,7 +137,12 @@ class BorrowRecordServiceTest {
         when(borrowRecordRepository.findByBookAndBorrowerAndReturnDateIsNull(book, borrower)).thenReturn(Optional.of(borrowRecord));
         when(borrowRecordRepository.save(any(BorrowRecord.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        BorrowRecordDTO actualDto = service.returnBook(bookId, borrowerId);
+        BorrowRecordDTO dto = new BorrowRecordDTO();
+        dto.setBookId(1);
+        dto.setBorrowerId(1);
+        dto.setBorrowDate(LocalDateTime.now().minusWeeks(1));
+
+        BorrowRecordDTO actualDto = service.returnBook(1, dto);
         assertEquals(bookId, actualDto.getBookId());
         assertEquals(borrowerId, actualDto.getBorrowerId());
         assertNotNull(actualDto.getReturnDate());

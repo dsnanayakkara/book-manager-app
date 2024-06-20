@@ -6,7 +6,6 @@ import java.util.List;
 
 @Data
 public class BookResultDTO {
-    private List<BookDTO> booksList;
+    private List<BookDTO> result;
     private int totalBooks;
-    private int availableBooks;
 }
