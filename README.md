@@ -14,6 +14,7 @@ RESTful API that manages a simple library system
 * Docker
 * Git
 * GitHub actions workflow
+* Swagger (API Documentation)
 
 # Deployment
 Prerequisites:
@@ -36,3 +37,9 @@ A Relational database design was selected due to the relational nature of the da
 
 # API Specification
 https://app.swaggerhub.com/apis-docs/dsnanayakkara/library-manager_api/1.0.0#/Books/get_api_v1_books
+
+
+# Logging
+- Log file is created inside the logs folder.
+- Logs are written to both the console and log file.
+- A RollingFileAppender is configured with max file size of 10MB
