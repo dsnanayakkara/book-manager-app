@@ -13,6 +13,7 @@ RESTful API that manages a simple library system
 * Maven
 * Docker
 * Git
+* GitHub actions workflow
 
 # Deployment
 * Clone the project from the github repository
@@ -26,3 +27,5 @@ RESTful API that manages a simple library system
 
 ![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/cb357987-1aee-4bd0-bf3f-e5b9ac3d90c8)
 
+# API Specification
+https://app.swaggerhub.com/apis-docs/dsnanayakkara/library-manager_api/1.0.0#/Books/get_api_v1_books
