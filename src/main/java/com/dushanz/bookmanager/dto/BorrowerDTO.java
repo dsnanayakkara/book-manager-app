@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 public class BorrowerDTO {
-    @NotNull(message = "Borrower id is mandatory")
     private int id;
     @NotNull(message = "Borrower name is mandatory")
     private String name;

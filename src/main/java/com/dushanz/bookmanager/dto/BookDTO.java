@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 public class BookDTO {
-    @NotNull(message = "Book id is mandatory")
     private int id;
     @NotNull(message = "Book title is mandatory")
     private String title;
