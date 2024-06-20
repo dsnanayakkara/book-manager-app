@@ -26,7 +26,7 @@ Steps:
 1. Clone the project from the GitHub repository: (git clone https://github.com/dsnanayakkara/book-manager-app.git)
 2. Open a terminal at the root of the project.
 3. Run Docker Compose to start the container: (docker-compose up -d --build)
-4. The database and test data will be automatically created before starting the Spring Boot application. This is done using sql script and docker compose.
+4. The database and test data will be automatically created before starting the Spring Boot application. This is done using sql script(create_tables.sql inside db-init folder) and docker compose.
 5.  Access the endpoints using postman(API Specification is linked below)
 
 # Database Design

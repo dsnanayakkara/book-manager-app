@@ -1,16 +1,29 @@
 services:
   db:
-    image: mysql
+    image: mysql:8.0
     restart: always
+    container_name: book-manager-db
     environment:
       MYSQL_ROOT_PASSWORD: 8FUZs2fV2Mc$
       MYSQL_DATABASE: library_db
     volumes:
       - ./db-init:/docker-entrypoint-initdb.d
-    networks:
-      - backend-network
     ports:
       - "3306:3306"
 
-networks:
-  backend-network:
+  app:
+    build: .  # Build from Dockerfile
+    container_name: book-manager-app
+    ports:
+      - 8080:8080  # Map to Spring Boot's default port
+    depends_on:
+      - db  # Ensure database starts first
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/library_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 8FUZs2fV2Mc$
+    volumes:
+      - logs:/app/logs  # Persist application logs
+
+volumes:
+  logs:
