@@ -146,7 +146,7 @@ class BorrowRecordServiceTest {
         assertEquals(bookId, actualDto.getBookId());
         assertEquals(borrowerId, actualDto.getBorrowerId());
         assertNotNull(actualDto.getReturnDate());
-        assertTrue(book.getIsBorrowed());
+        assertFalse(book.getIsBorrowed());
         verify(entityManager).find(Book.class, bookId, LockModeType.PESSIMISTIC_WRITE);
         verify(borrowerRepository).findById(borrowerId);
         verify(borrowRecordRepository).findByBookAndBorrowerAndReturnDateIsNull(book, borrower);
