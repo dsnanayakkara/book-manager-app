@@ -9,6 +9,8 @@ import com.dushanz.bookmanager.mapper.BookInfoMapper;
 import com.dushanz.bookmanager.mapper.BookMapper;
 import com.dushanz.bookmanager.repository.BookInfoRepository;
 import com.dushanz.bookmanager.repository.BookRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class BookService {
 
     private final BookInfoRepository bookInfoRepository;
     private final BookRepository bookRepository;
+    private static final Logger LOG = LoggerFactory.getLogger(BookService.class);
 
     @Autowired
     public BookService(BookInfoRepository bookInfoRepository, BookRepository bookRepository) {
@@ -46,6 +49,16 @@ public class BookService {
         if (existingBookInfo.isEmpty()) {
             BookInfo bookInfo = BookInfoMapper.INSTANCE.toEntity(bookDTO);
             existingBookInfo = Optional.of(bookInfoRepository.save(bookInfo));
+        }
+
+        else {
+            // we found a book with same ISBN as an existing book. Therefore, we Need to validate author and title
+            BookInfo bookInfo = existingBookInfo.get();
+            if (!(bookInfo.getAuthor().equals(bookDTO.getAuthor()) && bookInfo.getTitle().equals(bookDTO.getTitle()))) {
+                LOG.error("Book with an identical isbn {} with different author/title found", bookDTO.getIsbn());
+                throw new IllegalArgumentException("Book with an identical isbn with different author/title found");
+
+            }
         }
         // Create a new book with the existing or new book info
         Book book = new Book();
