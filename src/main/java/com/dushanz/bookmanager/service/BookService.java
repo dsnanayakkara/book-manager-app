@@ -58,23 +58,31 @@ public class BookService {
     /**
      * Returns a result dto object containing a list of books based on the boolean filter unique
      * if unique is true, then return the catalog of available books
-     * otherwise return all available books including copies of the same book
+     * otherwise return all available books(i.e. books that are not borrowed) including copies of the same book
      *
      * @return a list books registered and currently available for borrowing in the library.
      */
     public BookResultDTO getBooksAvailableForBorrow(boolean unique) {
-        List<BookInfo> availableBookInfos;
+        List<BookInfo> bookCatalog;
+        List<BookInfo> filteredBookInfos;
         List<Book> availableBooks;
         List<BookDTO> bookDTOs;
         BookResultDTO result = new BookResultDTO();
+        // fetch unique books that are not borrowed yet
         if (unique) {
-            availableBookInfos = bookInfoRepository.findAll();
+            bookCatalog = bookInfoRepository.findAll();
 
-            bookDTOs = availableBookInfos.stream()
+            filteredBookInfos = bookCatalog.stream()
+                    .filter(bookInfo -> bookInfo.getBookCopies().stream()
+                            .anyMatch(book -> !book.getIsBorrowed()))
+                    .toList();
+
+            bookDTOs = filteredBookInfos.stream()
                     .map(BookInfoMapper.INSTANCE::toDto)
                     .toList();
         } else {
-            availableBooks = bookRepository.findByStatus(Boolean.TRUE);
+            // fetch all books including copies, that are not borrowed yet
+            availableBooks = bookRepository.findByIsBorrowed(Boolean.FALSE);
             if (Objects.isNull(availableBooks) || availableBooks.isEmpty()) {
                 throw new ResourceNotFoundException("Book", "", "");
             }

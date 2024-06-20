@@ -19,8 +19,8 @@ public class Book {
     private Integer id;
 
     @NotNull
-    @Column(name = "status", nullable = false)
-    private Boolean status = false;
+    @Column(name = "is_borrowed", nullable = false)
+    private Boolean isBorrowed = false;
 
     @OneToMany(mappedBy = "book")
     private Set<BorrowRecord> borrowRecords = new LinkedHashSet<>();

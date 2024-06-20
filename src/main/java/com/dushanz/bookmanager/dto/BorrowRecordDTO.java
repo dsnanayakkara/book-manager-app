@@ -1,16 +1,16 @@
 package com.dushanz.bookmanager.dto;
 
 import com.dushanz.bookmanager.utils.DateUtils;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
 public class BorrowRecordDTO {
-    @NotNull(message = "borrowed bookId is mandatory")
+    @NotBlank(message = "borrowed bookId is mandatory")
     private int bookId;
-    @NotNull(message = "borrower id is mandatory")
+    @NotBlank(message = "borrower id is mandatory")
     private int borrowerId;
     private LocalDateTime borrowDate;
     private LocalDateTime returnDate;

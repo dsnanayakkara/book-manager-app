@@ -24,12 +24,12 @@ public class BookController {
 
     @GetMapping("")
     public ResponseEntity<BookResultDTO> getBooks(
-            @RequestParam(value = "status", required = false) Boolean status,
-            @RequestParam(value = "unique", defaultValue = "false") boolean unique) {
+            @RequestParam(value = "filter_unavailable", defaultValue = "false") boolean status,
+            @RequestParam(value = "filter_non_unique", defaultValue = "false") boolean unique) {
 
         BookResultDTO result;
         if (Boolean.TRUE.equals(status)) {
-            // If status is true, fetch only available books
+            // If status is true, we filter based on availability, fetch only available books
             result = bookService.getBooksAvailableForBorrow(unique);
         } else {
             // If status is not true (including null), fetch all books

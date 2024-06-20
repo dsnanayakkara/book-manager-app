@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS book_info (
 CREATE TABLE IF NOT EXISTS book (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     book_info_id INT,
-    status BOOLEAN NOT NULL,
+    is_borrowed BOOLEAN NOT NULL,
     FOREIGN KEY (book_info_id) REFERENCES book_info(book_info_id)
 );
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS borrow_record (
 );
 
 -- Add indexes
-ALTER TABLE book ADD INDEX idx_status (status);
+ALTER TABLE book ADD INDEX idx_is_borrowed (is_borrowed);
 ALTER TABLE book ADD INDEX idx_book_info_id (book_info_id);
 ALTER TABLE book_info ADD INDEX idx_book_info_ISBN (ISBN);
 ALTER TABLE borrow_record ADD INDEX idx_borrower_id (borrower_id);
@@ -54,8 +54,8 @@ SET @book_info_id1 = (SELECT book_info_id FROM book_info WHERE ISBN = '978-3-16-
 SET @book_info_id2 = (SELECT book_info_id FROM book_info WHERE ISBN = '978-1-40-289460-1');
 
 -- Insert sample data into the Book table
-INSERT INTO book (book_info_id, status) VALUES (@book_info_id1, false);
-INSERT INTO book (book_info_id, status) VALUES (@book_info_id2, true);
+INSERT INTO book (book_info_id, is_borrowed) VALUES (@book_info_id1, false);
+INSERT INTO book (book_info_id, is_borrowed) VALUES (@book_info_id2, true);
 
 -- Get the ids of the inserted rows
 SET @borrower_id1 = (SELECT borrower_id FROM borrower WHERE email = 'john.doe@example.com');

@@ -53,7 +53,7 @@ class BorrowRecordServiceTest {
     }
 
     @Test
-    void testBurrowBookWhenBookIsAvailable() throws Exception {
+    void testBurrowBookWhenBookIsAvailable() {
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
         dto.setBorrowerId(1);
@@ -61,7 +61,7 @@ class BorrowRecordServiceTest {
 
         Book book = new Book();
         book.setId(1);
-        book.setStatus(Boolean.TRUE); // The book is available
+        book.setIsBorrowed(Boolean.TRUE); // The book is available
 
         Borrower borrower = new Borrower();
         borrower.setId(1);
@@ -95,7 +95,7 @@ class BorrowRecordServiceTest {
 
         Book book = new Book();
         book.setId(1);
-        book.setStatus(Boolean.FALSE); // The book is not available
+        book.setIsBorrowed(Boolean.FALSE); // The book is not available
 
         Borrower borrower = new Borrower();
         borrower.setId(1);
@@ -116,13 +116,13 @@ class BorrowRecordServiceTest {
     }
 
     @Test
-    void testReturnBook() throws Exception {
+    void testReturnBook() {
         Integer bookId = 1;
         Integer borrowerId = 1;
 
         Book book = new Book();
         book.setId(bookId);
-        book.setStatus(Boolean.FALSE); // The book is currently borrowed
+        book.setIsBorrowed(Boolean.FALSE); // The book is currently borrowed
 
         Borrower borrower = new Borrower();
         borrower.setId(borrowerId);
@@ -146,7 +146,7 @@ class BorrowRecordServiceTest {
         assertEquals(bookId, actualDto.getBookId());
         assertEquals(borrowerId, actualDto.getBorrowerId());
         assertNotNull(actualDto.getReturnDate());
-        assertTrue(book.getStatus());
+        assertTrue(book.getIsBorrowed());
         verify(entityManager).find(Book.class, bookId, LockModeType.PESSIMISTIC_WRITE);
         verify(borrowerRepository).findById(borrowerId);
         verify(borrowRecordRepository).findByBookAndBorrowerAndReturnDateIsNull(book, borrower);

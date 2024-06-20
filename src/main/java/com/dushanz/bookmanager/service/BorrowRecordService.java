@@ -57,7 +57,7 @@ public class BorrowRecordService {
 
         // Check if the book is available to be borrowed
         // status = true indicates book is available, status = false indicates book is unavailable
-        if (Boolean.FALSE.equals(book.getStatus())) {
+        if (Boolean.FALSE.equals(book.getIsBorrowed())) {
             throw new IllegalStateException("Book is currently not available for borrowing");
         }
 
@@ -67,9 +67,9 @@ public class BorrowRecordService {
         borrowRecord.setBorrower(borrower);
         borrowRecord.setBorrowDate(LocalDateTime.now());
 
-        // Update the status of the book
+        // Update the isBorrowed status of the book to true as the book is borrowed
         // status = true indicates book is available, status = false indicates book is unavailable
-        book.setStatus(Boolean.FALSE);
+        book.setIsBorrowed(Boolean.TRUE);
 
         // Save the BorrowRecord and the updated Book
         BorrowRecord savedBorrowRecord = borrowRecordRepository.save(borrowRecord);
@@ -94,9 +94,9 @@ public class BorrowRecordService {
         BorrowRecord borrowRecord = borrowRecordRepository.findByBookAndBorrowerAndReturnDateIsNull(book, borrower)
                 .orElseThrow(() -> new IllegalStateException("The book is not currently borrowed by the borrower"));
 
-        // Update the BorrowRecord and the status of the book
+        // Update the BorrowRecord (borrowed = false as book is returned) and the status of the book
         borrowRecord.setReturnDate(LocalDateTime.now());
-        book.setStatus(Boolean.TRUE);
+        book.setIsBorrowed(Boolean.FALSE);
 
         // Save the updated BorrowRecord and Book
         BorrowRecord updatedBorrowRecord = borrowRecordRepository.save(borrowRecord);

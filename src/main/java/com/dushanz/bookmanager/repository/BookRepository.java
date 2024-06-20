@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
-    List<Book> findByStatus(Boolean status);
+    List<Book> findByIsBorrowed(Boolean isBorrowed);
 }
