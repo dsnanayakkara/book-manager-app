@@ -77,4 +77,31 @@ public class BorrowRecordService {
         return BorrowRecordMapper.INSTANCE.entityToDto(savedBorrowRecord);
     }
 
+    @Transactional
+    public BorrowRecordDTO returnBook(Integer bookId, Integer borrowerId) throws Exception {
+        // Validate the bookId and borrowerId
+        Book book = entityManager.find(Book.class, bookId, LockModeType.PESSIMISTIC_WRITE);
+        if (book == null) {
+            throw new Exception("Book not found");
+        }
+
+        Borrower borrower = borrowerRepository.findById(borrowerId)
+                .orElseThrow(() -> new Exception("Borrower not found"));
+
+        // Check if the book is currently borrowed by the borrower
+        BorrowRecord borrowRecord = borrowRecordRepository.findByBookAndBorrowerAndReturnDateIsNull(book, borrower)
+                .orElseThrow(() -> new IllegalStateException("The book is not currently borrowed by the borrower"));
+
+        // Update the BorrowRecord and the status of the book
+        borrowRecord.setReturnDate(LocalDateTime.now());
+        book.setStatus(Boolean.TRUE);
+
+        // Save the updated BorrowRecord and Book
+        BorrowRecord updatedBorrowRecord = borrowRecordRepository.save(borrowRecord);
+        bookRepository.save(book);
+
+        // Convert the updated BorrowRecord entity to a DTO and return it
+        return BorrowRecordMapper.INSTANCE.entityToDto(updatedBorrowRecord);
+    }
+
 }
