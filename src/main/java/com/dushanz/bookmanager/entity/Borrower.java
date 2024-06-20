@@ -12,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name="borrower")
 public class Borrower {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

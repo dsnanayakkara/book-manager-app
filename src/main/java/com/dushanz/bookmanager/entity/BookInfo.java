@@ -6,9 +6,13 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
+@Table(name="book_info")
 public class BookInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,5 +33,8 @@ public class BookInfo {
     @NotNull
     @Column(name = "author", nullable = false)
     private String author;
+
+    @OneToMany(mappedBy = "bookInfo")
+    private Set<Book> bookCopies = new LinkedHashSet<>();
 
 }
