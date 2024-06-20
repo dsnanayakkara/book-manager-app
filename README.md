@@ -16,12 +16,17 @@ RESTful API that manages a simple library system
 * GitHub actions workflow
 
 # Deployment
-* Clone the project from the github repository
-* git clone https://github.com/dsnanayakkara/book-manager-app.git
-* Open a terminal at the root of the project and run docker compose to start the container
-* docker-compose up -d --build
-* DB and test data will be automatically created before starting the spring boot application
-* Access the endpoints using postman(API Specification provided as documentation)
+Prerequisites:
+- Git
+- Docker
+- Docker Compose
+
+Steps:
+1. Clone the project from the GitHub repository: (git clone https://github.com/dsnanayakkara/book-manager-app.git)
+2. Open a terminal at the root of the project.
+3. Run Docker Compose to start the container: (docker-compose up -d --build)
+4. The database and test data will be automatically created before starting the Spring Boot application. This is done using sql script and docker compose.
+5.  Access the endpoints using postman(API Specification is linked below)
 
 # Database Design
 A Relational database design was selected due to the relational nature of the data and the presence of numerous CRUD operations pertaining to a library management system.
