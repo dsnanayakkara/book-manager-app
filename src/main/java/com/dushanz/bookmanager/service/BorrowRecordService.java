@@ -12,6 +12,8 @@ import com.dushanz.bookmanager.repository.BorrowerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class BorrowRecordService {
     private final BookRepository bookRepository;
     private final BorrowerRepository borrowerRepository;
     private final EntityManager entityManager;
+    private static final Logger LOG = LoggerFactory.getLogger(BorrowRecordService.class);
 
     @Autowired
     public BorrowRecordService(BorrowRecordRepository borrowRecordRepository, BookRepository bookRepository, BorrowerRepository borrowerRepository, EntityManager entityManager) {
@@ -49,6 +52,7 @@ public class BorrowRecordService {
         Book book = entityManager.find(Book.class, bookId, LockModeType.PESSIMISTIC_WRITE);
 
         if (book == null) {
+            LOG.error("Book with id {} not found", bookId);
             throw new ResourceNotFoundException("Book", "", "");
         }
 
@@ -87,8 +91,12 @@ public class BorrowRecordService {
             throw new ResourceNotFoundException("Book", "", "");
         }
 
+        LOG.info("Book with id {} retrieved for return", bookId);
+
         Borrower borrower = borrowerRepository.findById(borrowRecordDTO.getBookId())
                 .orElseThrow(() -> new ResourceNotFoundException("Borrower", "", ""));
+
+        LOG.info("Borrower with id {} for return", borrower.getId());
 
         // Check if the book is currently borrowed by the borrower
         BorrowRecord borrowRecord = borrowRecordRepository.findByBookAndBorrowerAndReturnDateIsNull(book, borrower)
