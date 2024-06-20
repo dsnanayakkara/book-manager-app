@@ -5,9 +5,11 @@ import com.dushanz.bookmanager.entity.Book;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
+    BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "bookInfo.title", target = "title")

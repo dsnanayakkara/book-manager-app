@@ -38,7 +38,7 @@ class BorrowRecordServiceTest {
     }
 
     @Test
-    void testCreateBorrowRecord() {
+    void testCreateBorrowRecord() throws Exception {
 
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
@@ -71,7 +71,7 @@ class BorrowRecordServiceTest {
         when(mapper.entityToDto(savedEntity)).thenReturn(expectedDto);
 
         // Then
-        BorrowRecordDTO actualDto = service.createBorrowRecord(dto);
+        BorrowRecordDTO actualDto = service.borrowBook(dto);
 
         assertEquals(expectedDto, actualDto);
     }

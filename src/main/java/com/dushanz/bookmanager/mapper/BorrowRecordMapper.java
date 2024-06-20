@@ -6,9 +6,12 @@ import com.dushanz.bookmanager.entity.BorrowRecord;
 import com.dushanz.bookmanager.entity.Borrower;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface BorrowRecordMapper {
+    BorrowRecordMapper INSTANCE = Mappers.getMapper(BorrowRecordMapper.class);
+
     @Mapping(source = "bookId", target = "book")
     @Mapping(source = "borrowerId", target = "borrower")
     BorrowRecord dtoToEntity(BorrowRecordDTO dto);
