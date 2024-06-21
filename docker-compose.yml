@@ -16,6 +16,8 @@ services:
     container_name: book-manager-app
     ports:
       - 8080:8080  # Map to Spring Boot's default port
+
+    restart: on-failure
     depends_on:
       - db  # Ensure database starts first
     environment:
@@ -24,6 +26,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: 8FUZs2fV2Mc$
     volumes:
       - logs:/app/logs  # Persist application logs
+    #command: ["/wait-for-script.sh", "db:3306", "java", "-jar", "target/book-manager-app-0.0.1-SNAPSHOT.jar"]
 
 volumes:
   logs:
