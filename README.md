@@ -36,6 +36,8 @@ This will:
 - Create and start the application container.
 - DB schema creation and test data population script sql script (create_tables.sql) located at  inside db-init folder
 
+# How to test the APIs
+- /book-manager-app/docs folder contains a postman collection which can be used to call the endpoints and see result.
 
 # Database Design
 A Relational database design was selected due to the relational nature of the data and the presence of numerous CRUD operations pertaining to a library management system.
