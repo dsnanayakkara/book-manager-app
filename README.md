@@ -13,7 +13,7 @@ RESTful API that manages a simple library system
 * Maven
 * Docker
 * Git
-* GitHub actions workflow
+* GitHub actions workflow(for CI/CD)
 * Swagger (API Documentation)
 
 # Deployment
