@@ -61,7 +61,7 @@ public class BorrowRecordService {
 
         // Check if the book is available to be borrowed
         // status = true indicates book is available, status = false indicates book is unavailable
-        if (Boolean.FALSE.equals(book.getIsBorrowed())) {
+        if (Boolean.TRUE.equals(book.getIsBorrowed())) {
             throw new IllegalStateException("Book is currently not available for borrowing");
         }
 
@@ -76,8 +76,8 @@ public class BorrowRecordService {
         book.setIsBorrowed(Boolean.TRUE);
 
         // Save the BorrowRecord and the updated Book
-        BorrowRecord savedBorrowRecord = borrowRecordRepository.save(borrowRecord);
         bookRepository.save(book);
+        BorrowRecord savedBorrowRecord = borrowRecordRepository.save(borrowRecord);
 
         // Convert the saved BorrowRecord entity to a DTO and return it
         return BorrowRecordMapper.INSTANCE.entityToDto(savedBorrowRecord);

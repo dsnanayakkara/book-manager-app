@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/v1/books")
+@RequestMapping("/api/v1/book")
 public class BookBorrowController {
     private final BorrowRecordService borrowRecordService;
 
@@ -20,13 +20,14 @@ public class BookBorrowController {
     }
 
     @PostMapping("/{id}/borrow")
-    public ResponseEntity<BorrowRecordDTO> borrowBook( @PathVariable Integer id,  @Valid @RequestBody BorrowRecordDTO transaction) {
+    public ResponseEntity<BorrowRecordDTO> borrowBook(@PathVariable Integer id,  @Valid @RequestBody BorrowRecordDTO transaction) {
         transaction.setBookId(id);
-        return new ResponseEntity<>(borrowRecordService.borrowBook(id, transaction), HttpStatus.CREATED);
+        BorrowRecordDTO temp = borrowRecordService.borrowBook(id, transaction);
+        return new ResponseEntity<>(temp, HttpStatus.CREATED);
     }
 
     @PostMapping("/{id}/return")
-    public ResponseEntity<BorrowRecordDTO> returnBook( @PathVariable Integer id,
+    public ResponseEntity<BorrowRecordDTO> returnBook(@PathVariable Integer id,
                                                        @Valid @RequestBody BorrowRecordDTO transaction) {
         transaction.setBookId(id);
         return new ResponseEntity<>(borrowRecordService.returnBook(id, transaction), HttpStatus.CREATED);

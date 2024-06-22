@@ -19,6 +19,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,11 +58,11 @@ class BorrowRecordServiceTest {
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
         dto.setBorrowerId(1);
-        dto.setBorrowDate(LocalDateTime.now());
+        dto.setBorrowDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         Book book = new Book();
         book.setId(1);
-        book.setIsBorrowed(Boolean.TRUE); // The book is available
+        book.setIsBorrowed(Boolean.FALSE); // The book is available
 
         Borrower borrower = new Borrower();
         borrower.setId(1);
@@ -91,11 +92,11 @@ class BorrowRecordServiceTest {
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
         dto.setBorrowerId(1);
-        dto.setBorrowDate(LocalDateTime.now());
+        dto.setBorrowDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         Book book = new Book();
         book.setId(1);
-        book.setIsBorrowed(Boolean.FALSE); // The book is not available
+        book.setIsBorrowed(Boolean.TRUE); // The book is not available
 
         Borrower borrower = new Borrower();
         borrower.setId(1);
@@ -140,7 +141,7 @@ class BorrowRecordServiceTest {
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
         dto.setBorrowerId(1);
-        dto.setBorrowDate(LocalDateTime.now().minusWeeks(1));
+        dto.setBorrowDate(LocalDateTime.now().minusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
         BorrowRecordDTO actualDto = service.returnBook(1, dto);
         assertEquals(bookId, actualDto.getBookId());

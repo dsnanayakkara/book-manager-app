@@ -34,7 +34,7 @@ This will:
 - Build the Spring Boot application into a Docker image.
 - Create and start the database container.
 - Create and start the application container.
-- DB schema creation and test data population script sql script (create_tables.sql) located at  inside db-init folder
+- DB schema creation and test data population script sql script (1_create_tables.sql) located at  inside db-init folder
 
 # How to test the APIs
 - /book-manager-app/docs folder contains a postman collection which can be used to call the endpoints and see result.
