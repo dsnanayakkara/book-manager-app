@@ -30,8 +30,8 @@ git clone https://github.com/dsnanayakkara/book-manager-app.git
 Alternatively, you can download the project as a zip file and extract it.
 2. Navigate to the root directory of the project in your terminal.
 3. Run Docker Compose to start the containers for the application and MySQL database services:
-docker-compose up -d --build
-The application and MySQL database are containerized and managed with Docker Compose. The database and test data will be automatically created before starting the Spring Boot application.
+- docker-compose up -d --build
+- The application and MySQL database are containerized and managed with Docker Compose. The database and test data will be automatically created before starting the Spring Boot application.
 4. You can now interact with the API using Postman or any other API client.
 - /book-manager-app/docs folder contains a postman collection which can be used to call the endpoints and see result.
 
