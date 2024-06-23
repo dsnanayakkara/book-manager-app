@@ -40,7 +40,7 @@ This project is a RESTful API for a simple library management system. It allows 
 
 
 ## Authentication
-The API uses Spring Security for authentication. It issues JSON Web Tokens (JWT) to authenticated users. To authenticate, make a request to the ` /api/v1/auth/token` endpoint with your credentials to receive a token. Include this token in the `Authorization` header of your requests (in the format `Bearer <token>`).
+The API uses Spring Security for authentication. It issues JSON Web Tokens (JWT) to authenticated users. To authenticate, make a request to the ` /api/v1/auth/token` endpoint with your credentials to receive a token. Include this token in the `Authorization` header of your requests (in the format `Bearer <token>`). Please note that Postman will automatically add the `bearer` prefix when auth type `Bearer token` is selected. User only have to paste the token in the token text box.
 
 ## Testing with postman
 
