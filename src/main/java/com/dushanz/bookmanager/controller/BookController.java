@@ -24,23 +24,20 @@ public class BookController {
 
     @GetMapping("")
     public ResponseEntity<BookResultDTO> getBooks(
-            @RequestParam(value = "filter_unavailable", defaultValue = "false") boolean status,
-            @RequestParam(value = "filter_non_unique", defaultValue = "false") boolean unique) {
-
-        BookResultDTO result;
-        if (Boolean.TRUE.equals(status)) {
-            // If status is true, we filter based on availability, fetch only available books
-            result = bookService.getBooksAvailableForBorrow(unique);
-        } else {
-            // If status is not true (including null), fetch all books
-            result = bookService.getAllBooks(unique);
-        }
+            @RequestParam(value = "available_only", defaultValue = "false") boolean status,
+            @RequestParam(value = "unique_only", defaultValue = "false") boolean unique) {
+        // The 'status' parameter is used to filter the books based on their availability.
+        // If 'status' is true, only available books are fetched.
+        // If 'status' is false, all registered books are fetched, regardless of their availability.
+        // The 'unique' parameter is used to decide whether to include multiple copies of the same book in the result.
+        // If 'unique' is true, only one copy of each book included in the result.
+        BookResultDTO result = status ? bookService.getBooksAvailableForBorrow(unique) : bookService.getAllBooks(unique);
 
         return ResponseEntity.ok(result);
     }
 
     @PostMapping("")
-    public ResponseEntity<BookDTO> register(@Valid @RequestBody BookDTO book) {
+    public ResponseEntity<BookDTO> registerBook(@Valid @RequestBody BookDTO book) {
         BookDTO savedBook = bookService.registerNewBook(book);
         return new ResponseEntity<>(savedBook, HttpStatus.CREATED);
     }

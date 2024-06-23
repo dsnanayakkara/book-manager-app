@@ -4,7 +4,6 @@ import com.dushanz.bookmanager.dto.BookDTO;
 import com.dushanz.bookmanager.dto.BookResultDTO;
 import com.dushanz.bookmanager.entity.Book;
 import com.dushanz.bookmanager.entity.BookInfo;
-import com.dushanz.bookmanager.exception.ResourceNotFoundException;
 import com.dushanz.bookmanager.mapper.BookInfoMapper;
 import com.dushanz.bookmanager.mapper.BookMapper;
 import com.dushanz.bookmanager.repository.BookInfoRepository;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -69,63 +67,43 @@ public class BookService {
     }
 
     /**
-     * Returns a result dto object containing a list of books based on the boolean filter unique
-     * if unique is true, then return the catalog of available books
-     * otherwise return all available books(i.e. books that are not borrowed) including copies of the same book
+     * Returns a result dto object containing a list of books that are currently available for borrow.
+     * result is filtered based on unique flag, if unique is true, fetch the available books that has distinct ISBN.
+     * otherwise return all available books including copies of the same book
      *
      * @return a list books registered and currently available for borrowing in the library.
      */
     public BookResultDTO getBooksAvailableForBorrow(boolean unique) {
-        List<BookInfo> bookCatalog;
-        List<BookInfo> filteredBookInfos;
-        List<Book> availableBooks;
         List<BookDTO> bookDTOs;
-        BookResultDTO result = new BookResultDTO();
-        // fetch unique books that are not borrowed yet
         if (unique) {
-            bookCatalog = bookInfoRepository.findAll();
-
-            filteredBookInfos = bookCatalog.stream()
+            List<BookInfo> bookCatalog = bookInfoRepository.findAll();
+            List<BookInfo> availableCatalog = bookCatalog.stream()
                     .filter(bookInfo -> bookInfo.getBookCopies().stream()
                             .anyMatch(book -> !book.getIsBorrowed()))
                     .toList();
-
-            bookDTOs = filteredBookInfos.stream()
+            bookDTOs = availableCatalog.stream()
                     .map(BookInfoMapper.INSTANCE::toDto)
                     .toList();
         } else {
-            // fetch all books including copies, that are not borrowed yet
-            availableBooks = bookRepository.findByIsBorrowed(Boolean.FALSE);
-            if (Objects.isNull(availableBooks) || availableBooks.isEmpty()) {
-                throw new ResourceNotFoundException("Book", "", "");
-            }
-            // Convert the Book entities to DTOs
+            List<Book> availableBooks = bookRepository.findByIsBorrowed(Boolean.FALSE);
             bookDTOs = availableBooks.stream()
                     .map(BookMapper.INSTANCE::entityToDto)
                     .toList();
-
         }
-        result.setResult(bookDTOs);
-        result.setTotalBooks(bookDTOs.size());
-        return result;
+        return createBookResultDTO(bookDTOs);
     }
 
     /**
-     * Returns the details of all the books in the library, including copies of the same book
+     * Returns the details of all the books in the library, regardless of availability
+     * result is filtered based on unique flag, if unique is true, fetch all books that has distinct ISBN
+     * if unique is false, fetch all registered books including copies of the same book
      *
      * @return complete list of books in the library.
      */
-    public BookResultDTO getAllBooks(boolean unique)  {
+    public BookResultDTO getAllBooks(boolean unique) {
         List<Book> allBooksList = bookRepository.findAll();
         List<BookDTO> bookDTOs;
-        BookResultDTO result = new BookResultDTO();
-
-        if (allBooksList.isEmpty()) {
-            throw new ResourceNotFoundException("Book", "", "");
-        }
-
         if (unique) {
-            // extract unique books from the books list
             List<Book> uniqueBooks = allBooksList.stream()
                     .collect(Collectors.collectingAndThen(
                             Collectors.toMap(
@@ -135,20 +113,21 @@ public class BookService {
                             ),
                             map -> new ArrayList<>(map.values())
                     ));
-
-            // convert to relevant DTO list
             bookDTOs = uniqueBooks.stream()
                     .map(BookMapper.INSTANCE::entityToDto)
                     .toList();
         } else {
-            // Include all the books regardless of having copies of the same book
             bookDTOs = allBooksList.stream()
                     .map(BookMapper.INSTANCE::entityToDto)
                     .toList();
         }
+        return createBookResultDTO(bookDTOs);
+    }
+
+    private BookResultDTO createBookResultDTO(List<BookDTO> bookDTOs) {
+        BookResultDTO result = new BookResultDTO();
         result.setResult(bookDTOs);
         result.setTotalBooks(bookDTOs.size());
-
         return result;
     }
 }
