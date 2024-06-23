@@ -21,6 +21,7 @@ public class AuthorizationController {
 
     @GetMapping("/token")
     public ResponseEntity<AuthTokenDTO> generateToken(Authentication authentication) {
+        // only serve authenticated user based on spring security filter
         if (authentication.isAuthenticated()) {
             String username = authentication.getName();
             String token = authenticationService.generateToken(username);

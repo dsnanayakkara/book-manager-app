@@ -5,18 +5,16 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+  User entity for system users
+ */
 @Getter
 @Setter
 @Entity
 @Table(name = "users")
-
-/*
-  User entity for system users
- */
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

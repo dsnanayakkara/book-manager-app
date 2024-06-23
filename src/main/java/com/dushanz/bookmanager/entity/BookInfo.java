@@ -10,6 +10,9 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * BookInfo entity represents a distinct book in the library based on ISBN.
+ */
 @Getter
 @Setter
 @Entity

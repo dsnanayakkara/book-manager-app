@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+
+/**
+ * BorrowRecord entity represents a record of book being borrowed by a library user.
+ */
 @Getter
 @Setter
 @Entity

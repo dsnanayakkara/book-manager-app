@@ -6,6 +6,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+/**
+ * Mapstruct class for mapping a BookInfo entity instance to BookDTO instance and vice versa.
+ */
 @Mapper(componentModel = "spring")
 public interface BookInfoMapper {
     BookInfoMapper INSTANCE = Mappers.getMapper(BookInfoMapper.class);

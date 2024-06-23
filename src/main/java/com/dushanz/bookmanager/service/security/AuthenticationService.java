@@ -10,6 +10,9 @@ import java.util.Base64;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Service class responsible for authentication/authorization related functions.
+ */
 @Service
 public class AuthenticationService {
 

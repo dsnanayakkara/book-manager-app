@@ -9,6 +9,9 @@ import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ Book entity representing an individual book in the library
+ */
 @Getter
 @Setter
 @Entity

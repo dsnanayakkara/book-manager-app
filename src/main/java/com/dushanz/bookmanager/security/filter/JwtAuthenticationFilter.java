@@ -21,6 +21,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+/**
+ * Custom authentication filter for extracting and validating a bearer token in JWT form.
+ * This is used in the Spring security configuration as a filter for requests coming to the REST endpoints of the system.
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationFilter.class);

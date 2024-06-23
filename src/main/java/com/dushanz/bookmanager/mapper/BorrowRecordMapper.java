@@ -4,14 +4,17 @@ import com.dushanz.bookmanager.dto.BorrowRecordDTO;
 import com.dushanz.bookmanager.entity.Book;
 import com.dushanz.bookmanager.entity.BorrowRecord;
 import com.dushanz.bookmanager.entity.Borrower;
+import com.dushanz.bookmanager.utils.DateUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
+/**
+ * Mapstruct for mapping a BorrowRecord entity instance to BorrowRecordDTO instance and vice versa.
+ */
 @Mapper(componentModel = "spring")
 public interface BorrowRecordMapper {
     BorrowRecordMapper INSTANCE = Mappers.getMapper(BorrowRecordMapper.class);
@@ -50,8 +53,7 @@ public interface BorrowRecordMapper {
     default String formatDateTime(LocalDateTime localDateTime) {
         String localDateTimeString = "";
         if(localDateTime != null) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            localDateTimeString = localDateTime.format(formatter);
+            localDateTimeString = DateUtils.formatLocalDateTime(localDateTime);
         }
 
         return localDateTimeString;
@@ -61,8 +63,7 @@ public interface BorrowRecordMapper {
     default LocalDateTime parseDateTime(String dateTimeString) {
         LocalDateTime localDateTime = null;
         if(dateTimeString != null && dateTimeString.isBlank()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            localDateTime = LocalDateTime.parse(dateTimeString, formatter);
+            localDateTime = DateUtils.parseLocalDateTime(dateTimeString);
         }
 
         return localDateTime;

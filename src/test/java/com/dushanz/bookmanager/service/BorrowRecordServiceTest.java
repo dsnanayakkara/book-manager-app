@@ -8,6 +8,7 @@ import com.dushanz.bookmanager.mapper.BorrowRecordMapper;
 import com.dushanz.bookmanager.repository.BookRepository;
 import com.dushanz.bookmanager.repository.BorrowRecordRepository;
 import com.dushanz.bookmanager.repository.BorrowerRepository;
+import com.dushanz.bookmanager.utils.DateUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.LockModeType;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,7 +58,7 @@ class BorrowRecordServiceTest {
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
         dto.setBorrowerId(1);
-        dto.setBorrowDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        dto.setBorrowDate(DateUtils.formatLocalDateTime(LocalDateTime.now()));
 
         Book book = new Book();
         book.setId(1);
@@ -92,7 +92,7 @@ class BorrowRecordServiceTest {
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
         dto.setBorrowerId(1);
-        dto.setBorrowDate(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        dto.setBorrowDate(DateUtils.formatLocalDateTime(LocalDateTime.now()));
 
         Book book = new Book();
         book.setId(1);
@@ -141,7 +141,7 @@ class BorrowRecordServiceTest {
         BorrowRecordDTO dto = new BorrowRecordDTO();
         dto.setBookId(1);
         dto.setBorrowerId(1);
-        dto.setBorrowDate(LocalDateTime.now().minusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        dto.setBorrowDate(DateUtils.formatLocalDateTime(LocalDateTime.now().minusWeeks(1)));
 
         BorrowRecordDTO actualDto = service.returnBook(1, dto);
         assertEquals(bookId, actualDto.getBookId());

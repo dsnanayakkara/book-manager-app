@@ -2,6 +2,9 @@ package com.dushanz.bookmanager.exception;
 
 import lombok.Data;
 
+/**
+ * DTO encapsulating details from exceptions occurred in the system.
+ */
 @Data
 public class ErrorResponse {
     private String message;

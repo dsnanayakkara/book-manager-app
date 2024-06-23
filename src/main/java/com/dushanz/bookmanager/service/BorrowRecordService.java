@@ -19,6 +19,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+/**
+ * Service class responsible for various CRUD operations for the Records of Books borrowed by users in the system.
+ */
 @Service
 public class BorrowRecordService {
     private final BorrowRecordRepository borrowRecordRepository;

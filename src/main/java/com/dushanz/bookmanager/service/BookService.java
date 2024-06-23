@@ -18,6 +18,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service class responsible for various CRUD operations for the Books records in the system.
+ */
 @Service
 public class BookService {
 

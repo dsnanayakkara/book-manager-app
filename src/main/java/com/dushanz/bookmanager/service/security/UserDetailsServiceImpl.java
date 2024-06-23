@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * UserDetails implementation required by Spring security configuration.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service class responsible for various CRUD operations for the Borrowers in the system.
+ */
 @Service
 public class BorrowerService {
 

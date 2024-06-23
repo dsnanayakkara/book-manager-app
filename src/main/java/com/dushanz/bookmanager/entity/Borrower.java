@@ -9,6 +9,9 @@ import lombok.Setter;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Borrower entity represents a library user who is registered in the system.
+ */
 @Getter
 @Setter
 @Entity
