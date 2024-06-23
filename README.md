@@ -46,7 +46,7 @@ Here is a test case we can run with postman to test the application flow.
 2. Get the auth token:
    - Select the `GET:/api/v1/auth/token` endpoint that returns a JWT token for authenticating the rest of the endpoints.
    - This endpoint itself is authenticated with basic auth that uses username and password.
-   - It's required to provide the username and password details as seen in the screen shot. (Included in the postman project).
+   - It's required to provide the username and password details. Use Auth user credentials which will be provided through email.
    - Run the endpoint and Copy the "token" attribute from the response.
 3. Register Borrower:
    - Select the POST:/api/v1/borrower endpoint to create a borrower in the system.
@@ -213,4 +213,6 @@ The project includes unit tests written with JUnit. You can run these tests to v
 - Log file is created inside the logs folder.
 - Logs are written to both the console and log file.
 - A RollingFileAppender is configured with max file size of 10MB
+
+## Credentials for testing (will be shared through email)
 
