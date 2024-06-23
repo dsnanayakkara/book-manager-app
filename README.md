@@ -185,11 +185,15 @@ Table Specification:
 | author        | varchar(255) |
 | book_info_id  | bigint       |
 
-#### Book Table: Registry of each book registered in the system, it could be either distinct ISBN or copies of the same book.
+#### Book Table: Registry of each book registered in the system, it could be either distinct ISBN or copies of the same book. Book table references the book_info table with it's foreign key. 
+is_borrowed is a status flagthat tracks whether this book is available for borrow right now or not.
 
-| Field    | Type   |
-|----------|--------|
-| book_id  | bigint |
+| Field        | Type    |
+|--------------|---------|
+| book_id      | bigint  |
+| book_info_id | bigint  |
+| is_borrowed  | tinyint |
+
 
 
 #### Borrower Table: Registry of all registered borrowers of the system.
