@@ -31,8 +31,13 @@ This project is a RESTful API for a simple library management system. It allows 
 3. Run Docker Compose to start the containers for the application and MySQL database services:
 - docker-compose up -d --build
 - The application and MySQL database are containerized and managed with Docker Compose. The database and test data will be automatically created before starting the Spring Boot application.
+- Docker container book-manager-app-main has two services, book-manager-app for app and book-manager-db for database.  Reference image:
+  
+![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/f3b40ebc-4c98-4812-9a93-3e2eba5ba992)
+
 4. You can now interact with the API using Postman or any other API client.
 - /book-manager-app/docs folder contains a postman collection which can be used to call the endpoints and see result.
+
 
 ## Authentication
 The API uses Spring Security for authentication. It issues JSON Web Tokens (JWT) to authenticated users. To authenticate, make a request to the ` /api/v1/auth/token` endpoint with your credentials to receive a token. Include this token in the `Authorization` header of your requests (in the format `Bearer <token>`).
