@@ -18,7 +18,6 @@ This project is a RESTful API for a simple library management system. It allows 
 | JUnit            | 5.11.0  |
 | Mockito          | 5.12.0  |
 
-
 ## Prerequisites
 - Docker
 - Git
@@ -41,9 +40,36 @@ The API uses Spring Security for authentication. It issues JSON Web Tokens (JWT)
 ## Database Design
 A Relational database design was selected due to the relational nature of the data and the presence of numerous CRUD operations pertaining to a library management system.
 ![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/cb357987-1aee-4bd0-bf3f-e5b9ac3d90c8)
+
 ## Testing and Code Coverage
 The project includes unit tests written with JUnit. You can run these tests to verify the functionality of the API. 
 - /book-manager-app/docs folder contains a postman collection which can be used to call the endpoints and see result.
+
+## Testing with postman
+Here is a screenshot of the Postman Project:
+![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/5c8baa7f-e7ac-4dec-99f5-609ef9c52616)
+
+1. Get the auth token:
+   - Run the `GET:/api/v1/auth/token` endpoint which uses basic authentication for itself and will return a JWT token.
+   - It's required to provid the username and password details as seen in the screen shot. (Included in the postman project).
+   - Copy the "token" attribute from the response.
+2. Register Borrower:
+   - Select the POST:/api/v1/borrower endpoint to create a borrower in the system.
+   - Select Authorization type as "Bearer" and paste the token from step 1 in the token field.
+   - Sample payload:
+     ```{
+    "name": "Maheshu",
+    "email": "mahshl@fdexaddmple.com"
+       }```
+3. Register a Book:
+   - Select the `GET:/api/v1/book` endpoint.
+   - Select Authorization type as "Bearer" and paste the token from step 1 in the token field.
+   - Sample payload
+     ```{
+    "title": "The Lord of the Rings",
+    "author": "Tolkien, John R. R",
+    "isbn":"9788845292613"
+        }```
 
 ## Logging
 - Log file is created inside the logs folder.
