@@ -178,22 +178,21 @@ Table Specification:
 
 #### Book Info Table: Holds the book records with distinct ISBN, this acts like a catalog of book titles without copies of the same book.
 
-| Field         | Type         |
-|---------------|--------------|
-| book_id       | bigint       |
-| title         | varchar(255) |
-| author        | varchar(255) |
-| book_info_id  | bigint       |
+| Field            | Type         |
+|------------------|--------------|
+| title            | varchar(255) |
+| author           | varchar(255) |
+| isbn(unique)     | varchar(255) |
+| book_info_id(pk) | bigint       |
 
 #### Book Table: Registry of each book registered in the system, it could be either distinct ISBN or copies of the same book. Book table references the book_info table with it's foreign key. 
 is_borrowed is a status flagthat tracks whether this book is available for borrow right now or not.
 
-| Field        | Type    |
-|--------------|---------|
-| book_id      | bigint  |
-| book_info_id | bigint  |
-| is_borrowed  | tinyint |
-
+| Field            | Type    |
+|------------------|---------|
+| book_id (pk)     | bigint  |
+| book_info_id(fk) | bigint  |
+| is_borrowed      | tinyint |
 
 
 #### Borrower Table: Registry of all registered borrowers of the system.
@@ -207,13 +206,13 @@ is_borrowed is a status flagthat tracks whether this book is available for borro
 
 #### Borrow_record Table: Details of each Borrow/Return transaction happened in the system. Each record captures the id of the borrower, id of the book borrowed and bnorrow/return timestamps.
 
-| Field        | Type     |
-|--------------|----------|
-| record_id    | bigint   |
-| borrow_date  | datetime |
-| return_date  | datetime |
-| borrower_id  | bigint   |
-| book_info_id | bigint   |
+| Field          | Type     |
+|-----------------|----------|
+| record_id(pk)   | bigint   |
+| borrow_date     | datetime |
+| return_date     | datetime |
+| borrower_id(fk) | bigint   |
+| book_id(fk)     | bigint   |
 
 ## ER Diagram
 ![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/9ad0a571-768a-450d-852f-493749b66dbe)
