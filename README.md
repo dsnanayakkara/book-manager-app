@@ -17,6 +17,7 @@ This project is a RESTful API for a simple library management system. It allows 
 | JWT              | 0.10.8  |
 | JUnit            | 5.11.0  |
 | Mockito          | 5.12.0  |
+| Maven            | 3.8.1   |
 
 ## Prerequisites
 - Docker
