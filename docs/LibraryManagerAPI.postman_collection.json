@@ -7,16 +7,60 @@
 	},
 	"item": [
 		{
+			"name": "Auth Token",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "hgytbbAzk891",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/auth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Register Borrower",
 			"request": {
 				"auth": {
-					"type": "noauth"
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE5MTI1MjM3LCJleHAiOjE3MTkyMTE2Mzd9.6hDjECSVHI0Z2gugQcIE-IDENhV1nOvcdU7-RUEiVO-l63rN2VkHKs31ihqcu8xD",
+							"type": "string"
+						}
+					]
 				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"dushan s\",\r\n    \"email\": \"dsn@example.com\"\r\n}",
+					"raw": "{\r\n    \"name\": \"UserTwo\",\r\n    \"email\": \"iserTwo@test.com\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -40,12 +84,31 @@
 			"response": []
 		},
 		{
-			"name": "getallbooks",
+			"name": "register book",
 			"request": {
-				"method": "GET",
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE5MDc2OTA2LCJleHAiOjE3MTkxNjMzMDZ9.px12t7z_Fm5HSBwHHzUNTRkYw2CO8qxynUKIFAHqXqL1ECke_FuVTF0vABdvbPxO",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"The Lord of the Rings2\",\r\n    \"author\": \"Tolkien, John R. R\",\r\n    \"isbn\":\"9788845292611\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/books?filter_non_unique=false",
+					"raw": "http://localhost:8080/api/v1/book",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -54,11 +117,50 @@
 					"path": [
 						"api",
 						"v1",
-						"books"
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getallbooks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE5MDc2NjMyLCJleHAiOjE3MTkxNjMwMzJ9.5_4oMH1yAyLVqd3lwUDagNo7FNFwiZQVdAxJRuLfISVTPbSCCCJHlW9OGPzaSO0s",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/book?available_only=false&& unique_only=false",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"book"
 					],
 					"query": [
 						{
-							"key": "filter_non_unique",
+							"key": "available_only",
+							"value": "false"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": " unique_only",
 							"value": "false"
 						}
 					]
@@ -67,13 +169,23 @@
 			"response": []
 		},
 		{
-			"name": "register book",
+			"name": "borrow book",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE5MDc2NjMyLCJleHAiOjE3MTkxNjMwMzJ9.5_4oMH1yAyLVqd3lwUDagNo7FNFwiZQVdAxJRuLfISVTPbSCCCJHlW9OGPzaSO0s",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"title\": \"BOOK TITLE 1\",\r\n    \"author\": \"Author1\",\r\n    \"isbn\":\"9781573226127\"\r\n}",
+					"raw": "\r\n{\r\n    \"bookId\": 3,\r\n    \"borrowerId\": 3,\r\n    \"isbn\":\"9781573226123\"\r\n}\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -81,17 +193,18 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080//api/v1/books",
+					"raw": "http://localhost:8080/api/v1/book/3/borrow",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"",
 						"api",
 						"v1",
-						"books"
+						"book",
+						"3",
+						"borrow"
 					]
 				}
 			},
@@ -100,43 +213,21 @@
 		{
 			"name": "return book",
 			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "\r\n{\r\n    \"bookId\": 1,\r\n    \"borrowerId\": 1,\r\n    \"isbn\":\"978-3-16-148410-0\"\r\n}\r\n\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzE5MDc2NjMyLCJleHAiOjE3MTkxNjMwMzJ9.5_4oMH1yAyLVqd3lwUDagNo7FNFwiZQVdAxJRuLfISVTPbSCCCJHlW9OGPzaSO0s",
+							"type": "string"
 						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:8080/api/v1/books/1/return",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"books",
-						"1",
-						"return"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "borrow book",
-			"request": {
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "\r\n{\r\n    \"bookId\": 1,\r\n    \"borrowerId\": 1,\r\n    \"isbn\":\"978-3-16-148410-0\"\r\n}\r\n\r\n",
+					"raw": "\r\n{\r\n    \"bookId\": 3,\r\n    \"borrowerId\": 3,\r\n    \"isbn\":\"9781573226123\"\r\n}\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -144,7 +235,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/books/1/borrow",
+					"raw": "http://localhost:8080/api/v1/book/3/return",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -153,9 +244,9 @@
 					"path": [
 						"api",
 						"v1",
-						"books",
-						"1",
-						"borrow"
+						"book",
+						"3",
+						"return"
 					]
 				}
 			},
