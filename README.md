@@ -206,6 +206,9 @@ Table Specification:
 ## ER Diagram
 ![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/9ad0a571-768a-450d-852f-493749b66dbe)
 
+# Database and Table creation
+- The database and test data will be automatically created before starting the Spring Boot application. This is done through the docker compose which calls the init script `1_create_tables.sql` inside `/db-init/` directory.
+  
 ## Unit tests and Code Coverage
 The project includes unit tests written with JUnit. You can run these tests to verify the functionality of the API. 
 
@@ -213,6 +216,10 @@ The project includes unit tests written with JUnit. You can run these tests to v
 - Log file is created inside the logs folder.
 - Logs are written to both the console and log file.
 - A RollingFileAppender is configured with max file size of 10MB
+
+## CI/CD
+- Github action runner is configured to compile, build and run tests when a new commit is pushed into the repository.
+- Workflow file can be found inside the .github/workflows directory.
 
 ## Credentials for testing (will be shared through email)
 
