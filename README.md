@@ -152,7 +152,7 @@ A Relational database design was selected due to the relational nature of the da
 
 Table Specification:
 
-## User Table: Holds the admin user details of the system. Usage is to authenticate the user to retrieve an auth token from the auth endpoint.
+#### User Table: Holds the admin user details of the system. Usage is to authenticate the user to retrieve an auth token from the auth endpoint.
 
 | Field    | Type         |
 |----------|--------------|
@@ -160,7 +160,7 @@ Table Specification:
 | username | varchar(255) |
 | password | varchar(255) |
 
-## User Role Table: Holds the permission role details for the admin users. Usage is to auhtorize the user once authenticated.
+#### User Role Table: Holds the permission role details for the admin users. Usage is to auhtorize the user once authenticated.
 
 | Field   | Type         |
 |---------|--------------|
@@ -168,7 +168,7 @@ Table Specification:
 | user_id | bigint       |
 | role    | varchar(255) |
 
-## Book Info Table: Holds the book records with distinct ISBN, this acts like a catalog of book titles without copies of the same book.
+#### Book Info Table: Holds the book records with distinct ISBN, this acts like a catalog of book titles without copies of the same book.
 
 | Field         | Type         |
 |---------------|--------------|
@@ -177,14 +177,14 @@ Table Specification:
 | author        | varchar(255) |
 | book_info_id  | bigint       |
 
-## Book Table: Registry of each book registered in the system, it could be either distinct ISBN or copies of the same book.
+#### Book Table: Registry of each book registered in the system, it could be either distinct ISBN or copies of the same book.
 
 | Field    | Type   |
 |----------|--------|
 | book_id  | bigint |
 
 
-## Borrower Table: Registry of all registered borrowers of the system.
+#### Borrower Table: Registry of all registered borrowers of the system.
 
 | Field       | Type         |
 |-------------|--------------|
@@ -193,7 +193,7 @@ Table Specification:
 | email_id    | varchar(255) |
 
 
-## Borrow_record Table: Details of each Borrow/Return transaction happened in the system. Each record captures the id of the borrower, id of the book borrowed and bnorrow/return timestamps.
+#### Borrow_record Table: Details of each Borrow/Return transaction happened in the system. Each record captures the id of the borrower, id of the book borrowed and bnorrow/return timestamps.
 
 | Field        | Type     |
 |--------------|----------|
@@ -203,7 +203,7 @@ Table Specification:
 | borrower_id  | bigint   |
 | book_info_id | bigint   |
 
-### ER Diagram
+## ER Diagram
 ![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/9ad0a571-768a-450d-852f-493749b66dbe)
 
 ## Unit tests and Code Coverage
