@@ -41,6 +41,8 @@ The API uses Spring Security for authentication. It issues JSON Web Tokens (JWT)
 
 - /book-manager-app/docs folder contains a postman collection which can be used to call the endpoints and see result.
 
+- [Link to postman Collection](docs/LibraryManagerAPI.postman_collection.json)
+
 Here is a test case we can run with postman to test the application flow.
 1. Download the postman collection inside `/book-manager-app/docs` and import it into postman standalone application.
 2. Get the auth token:
