@@ -155,6 +155,9 @@ Here is a test case we can run with postman to test the application flow.
 Here is a screenshot of the Postman Project:
 ![image](https://github.com/dsnanayakkara/book-manager-app/assets/47851416/5c8baa7f-e7ac-4dec-99f5-609ef9c52616)
 
+## API Specification (Swagger)
+https://app.swaggerhub.com/apis-docs/dsnanayakkara/library-manager_api/1.0.0#/Books/get_api_v1_books
+
 ## Database Design
 A Relational database design was selected due to the relational nature of the data and the presence of numerous CRUD operations pertaining to a library management system.
 
