@@ -8,17 +8,17 @@ This project is a RESTful API for a simple library management system. It allows 
 | Technology       | Version |
 |------------------|---------|
 | Java             | 17      |
-| Spring Boot      | 2.5.4   |
-| Spring Data JPA  | 2.5.4   |
-| Spring Security  | 5.5.1   |
+| Spring Boot      | 3.3.0   |
+| Spring Data JPA  | 3.3.0   |
+| Spring Security  | 6.3.0   |
 | MySQL            | 8.0     |
-| Docker           | 20.10.7 |
-| Docker Compose   | 1.29.2  |
-| JWT              | 0.9.1   |
-| JUnit            | 5.7.2   |
+| Docker           | 26.1.4  |
+| Docker Compose   | 2.27.1  |
+| JWT              | 0.10.8  |
+| JUnit            | 5.11.0  |
+| Mockito          | 5.12.0  |
 
-## Usage
-1. Clone the project from the GitHub repository:
+
 ## Prerequisites
 - Docker
 - Git
