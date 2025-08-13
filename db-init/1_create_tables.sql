@@ -62,9 +62,9 @@ ALTER TABLE borrow_record ADD INDEX idx_return_date (return_date);
 -- insert data
 -- USE library_db;
 
--- create default system user and role
+-- store encoded password instead of plaintext
 INSERT INTO users (username, password)
-VALUES ('user', '{noop}hgytbbAzk891');
+VALUES ('user', '$2b$10$XhaOwSpDz94qUc2zq5XJZuhroRpTyD5KEq.oFXWdRmoyvsJbBCM7y');
 
 -- get the id of the user just inserted
 SET @userId = (SELECT id FROM users WHERE username = 'user');
