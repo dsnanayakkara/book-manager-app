@@ -119,11 +119,11 @@ class BorrowRecordServiceTest {
     @Test
     void testReturnBook() {
         Integer bookId = 1;
-        Integer borrowerId = 1;
+        Integer borrowerId = 2;
 
         Book book = new Book();
         book.setId(bookId);
-        book.setIsBorrowed(Boolean.FALSE); // The book is currently borrowed
+        book.setIsBorrowed(Boolean.TRUE); // The book is currently borrowed
 
         Borrower borrower = new Borrower();
         borrower.setId(borrowerId);
@@ -139,11 +139,11 @@ class BorrowRecordServiceTest {
         when(borrowRecordRepository.save(any(BorrowRecord.class))).thenAnswer(i -> i.getArguments()[0]);
 
         BorrowRecordDTO dto = new BorrowRecordDTO();
-        dto.setBookId(1);
-        dto.setBorrowerId(1);
+        dto.setBookId(bookId);
+        dto.setBorrowerId(borrowerId);
         dto.setBorrowDate(DateUtils.formatLocalDateTime(LocalDateTime.now().minusWeeks(1)));
 
-        BorrowRecordDTO actualDto = service.returnBook(1, dto);
+        BorrowRecordDTO actualDto = service.returnBook(bookId, dto);
         assertEquals(bookId, actualDto.getBookId());
         assertEquals(borrowerId, actualDto.getBorrowerId());
         assertNotNull(actualDto.getReturnDate());
