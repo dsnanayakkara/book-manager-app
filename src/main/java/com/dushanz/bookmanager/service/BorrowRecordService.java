@@ -96,7 +96,7 @@ public class BorrowRecordService {
 
         LOG.info("Book with id {} retrieved for return", bookId);
 
-        Borrower borrower = borrowerRepository.findById(borrowRecordDTO.getBookId())
+        Borrower borrower = borrowerRepository.findById(borrowRecordDTO.getBorrowerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Borrower", "", ""));
 
         LOG.info("Borrower with id {} for return", borrower.getId());
